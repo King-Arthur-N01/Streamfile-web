@@ -1,0 +1,23 @@
+<?php
+function getDirectoryFiles($dir) {
+    $files = array();
+    if (is_dir($dir)) {
+        if ($handle = opendir($dir)) {
+            while (($file = readdir($handle)) !== false) {
+                $files[] = $file;
+            }
+            closedir($handle);
+        }
+    }
+    return $files;
+}
+function printDirectoryFiles($dir) {
+    $files = getDirectoryFiles($dir);
+    foreach ($files as $file) {
+        if ($file != '.' && $file != '..') {
+            print '» <a href="stream.php?dir=' . $dir . '&file=' . $file . '" target="_blank">' . ucwords($file) . '</a><br/>';
+        }
+    }
+}
+printDirectoryFiles($dir);
+?>
